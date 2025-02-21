@@ -1,17 +1,9 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useSearch } from '@/composables/useSearch'
 import DropdownMenu from './DropdownMenu.vue'
 
-const router = useRouter()
-const searchQuery = ref('')
-
-// Function to navigate to the search page with the entered country
-const performSearch = () => {
-  if (searchQuery.value.trim()) {
-    router.push({ path: '/search', query: { country: searchQuery.value } })
-  }
-}
+const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, performSearch } =
+  useSearch()
 </script>
 
 <template>
@@ -42,16 +34,32 @@ const performSearch = () => {
         </ul>
 
         <!-- Centered Search Form -->
-        <form class="d-flex mx-auto search-box" @submit.prevent="performSearch">
-          <input
-            v-model="searchQuery"
-            class="form-control"
-            type="search"
-            placeholder="Enter Country"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-light" type="submit">Search</button>
-        </form>
+        <div class="search-container mx-auto">
+          <form class="d-flex search-box" @submit.prevent="performSearch">
+            <input
+              v-model="searchQuery"
+              @focus="showSuggestions = true"
+              @blur="setTimeout(() => (showSuggestions = false), 200)"
+              class="form-control"
+              type="search"
+              placeholder="Enter Country"
+              aria-label="Search"
+            />
+            <button class="btn btn-outline-light" type="submit">Search</button>
+          </form>
+
+          <!-- Search Suggestions Dropdown -->
+          <ul v-if="showSuggestions && filteredCountries.length" class="suggestions-list">
+            <li
+              v-for="(country, index) in filteredCountries"
+              :key="index"
+              @click="selectSuggestion(country)"
+              class="suggestion-item"
+            >
+              {{ country }}
+            </li>
+          </ul>
+        </div>
 
         <!-- Right-side Dropdowns -->
         <ul class="navbar-nav">
@@ -78,6 +86,31 @@ const performSearch = () => {
 .search-box {
   width: 100%;
   max-width: 500px; /* Limits search box width */
+}
+
+/* Search suggestions dropdown */
+.suggestions-list {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 2px;
+  padding: 0;
+  list-style: none;
+  z-index: 1000;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+  background: #f0f0f0;
 }
 
 /* Responsive Search Box */
