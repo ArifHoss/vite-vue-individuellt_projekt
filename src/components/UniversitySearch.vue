@@ -20,6 +20,7 @@ const fetchUniversities = async () => {
     )
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`)
     universities.value = await response.json()
+    console.log(universities)
   } catch (err) {
     console.error('Error fetching universities:', err)
     error.value = true

@@ -1,0 +1,9 @@
+/* Ensure content doesn't get hidden behind fixed navbar */
+body {
+  padding-top: 60px; /* Adjust height based on navbar */
+}
+
+/* Fix dropdowns appearing behind content */
+.navbar .dropdown-menu {
+  z-index: 1050;
+}

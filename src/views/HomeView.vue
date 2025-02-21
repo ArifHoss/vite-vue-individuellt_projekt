@@ -1,35 +1,12 @@
-<script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-const searchQuery = ref('')
-
-// Redirect to search page
-const performSearch = () => {
-  if (searchQuery.value.trim()) {
-    router.push({ path: '/search', query: { country: searchQuery.value } })
-  }
-}
-</script>
-
 <template>
   <div class="home">
     <!-- Hero Section -->
     <section class="hero text-center">
       <h1>Welcome to University Finder 🎓</h1>
       <p>Find universities worldwide easily with just a search.</p>
-
-      <!-- Search Box -->
-      <div class="search-box">
-        <input
-          v-model="searchQuery"
-          type="text"
-          class="form-control"
-          placeholder="Enter a country..."
-        />
-        <button @click="performSearch" class="btn btn-primary">Search</button>
-      </div>
+      <p class="search-info">
+        Use the search bar in the **navbar** to find universities by country!
+      </p>
     </section>
 
     <!-- Featured Universities -->
@@ -87,6 +64,9 @@ const performSearch = () => {
 
 <style scoped>
 /* Hero Section */
+.home {
+    padding-top: 50px;
+}
 .hero {
   text-align: center;
   padding: 50px 20px;
@@ -102,22 +82,10 @@ const performSearch = () => {
   color: #555;
 }
 
-/* Search Box */
-.search-box {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.search-box input {
-  width: 300px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.search-box button {
-  margin-left: 10px;
+.search-info {
+  font-size: 1rem;
+  color: #888;
+  font-style: italic;
 }
 
 /* Featured Universities */
