@@ -1,16 +1,29 @@
 <script setup>
+import { ref, computed } from 'vue'
+
 import { useSearch } from '@/composables/useSearch'
 import DropdownMenu from './DropdownMenu.vue'
+import { translations } from '@/stores/translations.js'
 
 const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, performSearch } =
   useSearch()
+
+// Store selected language
+const selectedLanguage = ref(localStorage.getItem('selectedLanguage') || 'EN')
+
+const changeLanguage = (lang) => {
+  selectedLanguage.value = lang
+  localStorage.setItem('selectedLanguage', lang)
+}
+
+const t = computed(() => translations[selectedLanguage.value])
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
     <div class="container">
       <!-- Home Link -->
-      <RouterLink class="navbar-brand" to="/">University Finder</RouterLink>
+      <RouterLink class="navbar-brand" to="/">{{ t.searchPlaceholder }}</RouterLink>
 
       <!-- Mobile Toggle Button -->
       <button
@@ -29,12 +42,12 @@ const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, perfo
       <div class="collapse navbar-collapse" id="nav-collapse">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <RouterLink class="nav-link" to="/about">About</RouterLink>
+            <RouterLink class="nav-link" to="/about">{{ t.about }}</RouterLink>
           </li>
         </ul>
 
         <!-- Centered Search Form -->
-        <div class="search-container d-flex justify-content-center w-100">
+        <div class="search-container mx-auto">
           <form class="d-flex search-box" @submit.prevent="performSearch">
             <input
               v-model="searchQuery"
@@ -45,7 +58,7 @@ const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, perfo
               placeholder="Enter Country"
               aria-label="Search"
             />
-            <button class="btn btn-outline-light" type="submit">Search</button>
+            <button class="btn btn-outline-light" type="submit">{{ t.search }}</button>
           </form>
 
           <!-- Search Suggestions Dropdown -->
@@ -63,7 +76,34 @@ const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, perfo
 
         <!-- Right-side Dropdowns -->
         <ul class="navbar-nav">
-          <DropdownMenu title="Lang" id="langDropdown" :items="['EN', 'ES', 'RU', 'FA']" />
+          <!-- <DropdownMenu title="Lang" id="langDropdown" :items="['EN', 'ES', 'RU', 'FA']" /> -->
+
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="langDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ selectedLanguage }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+              <li>
+                <a class="dropdown-item" href="#" @click.prevent="changeLanguage('EN')">English</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" @click.prevent="changeLanguage('ES')">Español</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" @click.prevent="changeLanguage('RU')">Русский</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" @click.prevent="changeLanguage('FA')">فارسی</a>
+              </li>
+            </ul>
+          </li>
           <DropdownMenu title="User" id="userDropdown" :items="['Profile', 'Sign Out']" />
         </ul>
       </div>

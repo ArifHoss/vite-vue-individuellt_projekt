@@ -4,23 +4,26 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 const universities = ref(null)
-const name = ref(route.query.country || '')
+const name = ref(decodeURIComponent(route.query.country || ''))
 const loading = ref(false)
 const error = ref(false)
 
-// Fetch universities based on query
 const fetchUniversities = async () => {
   if (!name.value.trim()) return
   loading.value = true
   error.value = false
 
   try {
-    const response = await fetch(
-      `http://universities.hipolabs.com/search?country=${encodeURIComponent(name.value)}`,
-    )
+    const encodedName = encodeURIComponent(name.value)
+    const apiUrl = `http://universities.hipolabs.com/search?country=${encodedName}`
+
+    console.log('Fetching from API:', apiUrl)
+
+    const response = await fetch(apiUrl)
+
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`)
+
     universities.value = await response.json()
-    console.log(universities)
   } catch (err) {
     console.error('Error fetching universities:', err)
     error.value = true
@@ -33,7 +36,7 @@ const fetchUniversities = async () => {
 watch(
   () => route.query.country,
   (newCountry) => {
-    name.value = newCountry || ''
+    name.value = decodeURIComponent(newCountry || '')
     fetchUniversities()
   },
 )

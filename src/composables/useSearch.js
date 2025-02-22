@@ -24,9 +24,11 @@ export function useSearch() {
   // Function to perform search and clear input
   const performSearch = () => {
     if (searchQuery.value.trim()) {
-      router.push({ path: '/search', query: { country: searchQuery.value } })
+      const encodedQuery = encodeURIComponent(searchQuery.value.trim())
+      router.push({ path: '/search', query: { country: encodedQuery } })
+
       setTimeout(() => {
-        searchQuery.value = '' // Clears input field after navigation
+        searchQuery.value = ''
       }, 300)
     }
   }
