@@ -46,12 +46,6 @@ onMounted(() => {
 
 <template>
   <div id="app">
-    <!-- <label>
-      Country Name:
-      <input v-model="name" placeholder="Enter a country" />
-    </label>
-    <input @click="fetchUniversities" :disabled="loading" type="button" value="Get University" /> -->
-
     <h1 v-if="universities">Found total {{ universities.length }} Universities in {{ name }}!</h1>
 
     <dl v-if="universities?.length" class="universities-list">
