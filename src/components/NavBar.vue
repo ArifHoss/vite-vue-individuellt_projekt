@@ -40,7 +40,7 @@ const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, perfo
               v-model="searchQuery"
               @focus="showSuggestions = true"
               @blur="setTimeout(() => (showSuggestions = false), 200)"
-              class="form-control"
+              class="form-control me-2"
               type="search"
               placeholder="Enter Country"
               aria-label="Search"
