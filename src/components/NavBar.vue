@@ -7,7 +7,7 @@ const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, perfo
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
     <div class="container">
       <!-- Home Link -->
       <RouterLink class="navbar-brand" to="/">University Finder</RouterLink>
