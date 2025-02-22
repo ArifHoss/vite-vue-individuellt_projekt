@@ -34,7 +34,7 @@ const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, perfo
         </ul>
 
         <!-- Centered Search Form -->
-        <div class="search-container mx-auto">
+        <div class="search-container d-flex justify-content-center w-100">
           <form class="d-flex search-box" @submit.prevent="performSearch">
             <input
               v-model="searchQuery"
