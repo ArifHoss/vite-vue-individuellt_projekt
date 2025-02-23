@@ -3,7 +3,11 @@ import HomeView from '../views/HomeView.vue'
 
 const AboutView = () => import('../views/AboutView.vue')
 const UniversitySearch = () => import('../components/UniversitySearch.vue')
-const NotFound = () => import('../views/NotFound.vue') // 404 Page
+const NotFound = () => import('../views/NotFound.vue')
+const Login = () => import('../components/LogIn.vue')
+const Logout = () => import('../components/LogOut.vue')
+const Layout = () => import('../components/LayOut.vue')
+const Profile = () => import('../views/UserProfile.vue')
 
 const routes = [
   {
@@ -25,6 +29,26 @@ const routes = [
     path: '/:pathMatch(.*)*', // Catch-all route for 404 errors
     name: 'NotFound',
     component: NotFound,
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+  },
+  {
+    path: '/logout',
+    name: 'logout',
+    component: Logout,
+  },
+  {
+    path: '/layout',
+    name: 'layout',
+    component: Layout,
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
   },
 ]
 

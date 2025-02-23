@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-import { useSearch } from '@/composables/useSearch'
+import { useSearch } from '@/composables/useSearch.js'
 import DropdownMenu from './DropdownMenu.vue'
 import { translations } from '@/stores/translations.js'
 
@@ -104,7 +104,7 @@ const t = computed(() => translations[selectedLanguage.value])
               </li>
             </ul>
           </li>
-          <DropdownMenu title="User" id="userDropdown" :items="['Profile', 'Sign Out']" />
+          <DropdownMenu title="User" id="userDropdown" :items="['Profile', 'Login','Logout']" />
         </ul>
       </div>
     </div>
