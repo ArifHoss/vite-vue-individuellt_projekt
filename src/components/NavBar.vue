@@ -104,7 +104,7 @@ const t = computed(() => translations[selectedLanguage.value])
               </li>
             </ul>
           </li>
-          <DropdownMenu title="User" id="userDropdown" :items="['Profile', 'Login','Logout']" />
+          <DropdownMenu title="User" id="userDropdown" :items="['Profile', 'Login']" />
         </ul>
       </div>
     </div>

@@ -26,10 +26,7 @@ defineProps({
         <RouterLink v-if="item === 'Profile'" class="dropdown-item" to="/profile">
           {{ item }}
         </RouterLink>
-        <RouterLink v-else-if="item === 'Login'" class="dropdown-item" to="/login">
-          {{ item }}
-        </RouterLink>
-        <RouterLink v-else class="dropdown-item" to="/logout">
+        <RouterLink v-else class="dropdown-item" to="/login">
           {{ item }}
         </RouterLink>
       </li>
