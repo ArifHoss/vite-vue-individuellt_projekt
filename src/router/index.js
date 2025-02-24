@@ -8,6 +8,7 @@ const Login = () => import('../components/LogIn.vue')
 const Logout = () => import('../components/LogOut.vue')
 const Layout = () => import('../components/LayOut.vue')
 const Profile = () => import('../views/UserProfile.vue')
+const CreateAccount = () => import('../components/CreateAccount.vue')
 
 const routes = [
   {
@@ -49,6 +50,11 @@ const routes = [
     path: '/profile',
     name: 'profile',
     component: Profile,
+  },
+  {
+    path: '/create',
+    name: 'create',
+    component: CreateAccount,
   },
 ]
 
