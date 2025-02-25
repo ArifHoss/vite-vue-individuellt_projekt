@@ -1,31 +1,46 @@
 <script setup>
-import { ref, computed } from 'vue'
-
+import { ref, computed, watchEffect } from 'vue'
+import { useRouter } from 'vue-router'
 import { useSearch } from '@/composables/useSearch.js'
 import DropdownMenu from './DropdownMenu.vue'
 import { translations } from '@/stores/translations.js'
 
 const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, performSearch } =
   useSearch()
-
-// Store selected language
+const router = useRouter()
 const selectedLanguage = ref(localStorage.getItem('selectedLanguage') || 'EN')
+const user = ref(null)
 
+//  Make `user` reactive to `localStorage` changes
+watchEffect(() => {
+  const storedUser = localStorage.getItem('user')
+  user.value = storedUser ? JSON.parse(storedUser) : null
+})
+
+// Logout function to clear user and redirect
+const logout = () => {
+  localStorage.removeItem('user')
+  user.value = null
+  router.push('/login')
+}
+
+//  Change language function
 const changeLanguage = (lang) => {
   selectedLanguage.value = lang
   localStorage.setItem('selectedLanguage', lang)
 }
 
 const t = computed(() => translations[selectedLanguage.value])
+
+//  Dynamically update dropdown items based on login status
+const userItems = computed(() => (user.value ? ['Profile', 'Logout'] : ['Login']))
 </script>
 
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
     <div class="container">
-      <!-- Home Link -->
-      <RouterLink class="navbar-brand" to="/">{{ t.searchPlaceholder }}</RouterLink>
+      <RouterLink class="navbar-brand" to="/">{{ t.home }}</RouterLink>
 
-      <!-- Mobile Toggle Button -->
       <button
         class="navbar-toggler"
         type="button"
@@ -38,7 +53,6 @@ const t = computed(() => translations[selectedLanguage.value])
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Navbar Collapsible Content -->
       <div class="collapse navbar-collapse" id="nav-collapse">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
@@ -46,7 +60,6 @@ const t = computed(() => translations[selectedLanguage.value])
           </li>
         </ul>
 
-        <!-- Centered Search Form -->
         <div class="search-container mx-auto">
           <form class="d-flex search-box" @submit.prevent="performSearch">
             <input
@@ -74,10 +87,8 @@ const t = computed(() => translations[selectedLanguage.value])
           </ul>
         </div>
 
-        <!-- Right-side Dropdowns -->
         <ul class="navbar-nav">
-          <!-- <DropdownMenu title="Lang" id="langDropdown" :items="['EN', 'ES', 'RU', 'FA']" /> -->
-
+          <!-- Language Dropdown -->
           <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
@@ -100,11 +111,13 @@ const t = computed(() => translations[selectedLanguage.value])
                 <a class="dropdown-item" href="#" @click.prevent="changeLanguage('RU')">Русский</a>
               </li>
               <li>
-                <a class="dropdown-item" href="#" @click.prevent="changeLanguage('FA')">فارسی</a>
+                <a class="dropdown-item" href="#" @click.prevent="changeLanguage('AR')">فارسی</a>
               </li>
             </ul>
           </li>
-          <DropdownMenu title="User" id="userDropdown" :items="['Profile', 'Login']" />
+
+          <!--  Dynamic User Dropdown -->
+          <DropdownMenu title="User" id="userDropdown" :items="userItems" @logout="logout" />
         </ul>
       </div>
     </div>

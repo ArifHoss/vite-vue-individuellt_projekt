@@ -20,7 +20,7 @@ const login = () => {
 
   if (user) {
     localStorage.setItem('user', JSON.stringify(user)) // Store user session
-    router.push('/profile') // Redirect to home
+    router.push('/') // Redirect to home
   } else {
     errorMessage.value = 'Invalid username or password'
   }

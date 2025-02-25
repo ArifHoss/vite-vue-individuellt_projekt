@@ -5,7 +5,6 @@ const AboutView = () => import('../views/AboutView.vue')
 const UniversitySearch = () => import('../components/UniversitySearch.vue')
 const NotFound = () => import('../views/NotFound.vue')
 const Login = () => import('../components/LogIn.vue')
-const Logout = () => import('../components/LogOut.vue')
 const Layout = () => import('../components/LayOut.vue')
 const Profile = () => import('../views/UserProfile.vue')
 const CreateAccount = () => import('../components/CreateAccount.vue')
@@ -35,11 +34,6 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
-  },
-  {
-    path: '/logout',
-    name: 'logout',
-    component: Logout,
   },
   {
     path: '/layout',

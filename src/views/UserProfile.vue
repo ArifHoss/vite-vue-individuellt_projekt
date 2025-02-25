@@ -16,23 +16,23 @@ onMounted(() => {
 })
 
 // Logout function
-const logout = () => {
-  localStorage.removeItem('user') // Remove user data
-  user.value = null
-  router.push('/login') // Redirect to login
-}
+// const logout = () => {
+//   localStorage.removeItem('user') // Remove user data
+//   user.value = null
+//   router.push('/login') // Redirect to login
+// }
 </script>
 
 <template>
   <div class="profile-container" v-if="user">
     <h2>User Profile</h2>
     <p><strong>Email:</strong> {{ user.username }}</p>
-    <button @click="logout" class="btn btn-danger">Logout</button>
+    <!-- <button @click="logout" class="btn btn-danger">Logout</button> -->
   </div>
 
-  <div v-else class="profile-container">
+  <!-- <div v-else class="profile-container">
     <h2>Redirecting to login...</h2>
-  </div>
+  </div> -->
 </template>
 
 <style scoped>

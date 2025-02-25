@@ -1,21 +1,21 @@
 export const translations = {
   EN: {
-    searchPlaceholder: 'Enter Country',
+    home: 'Home',
     about: 'About',
     search: 'Search',
   },
   ES: {
-    searchPlaceholder: 'Ingrese un país',
+    home: 'Hogar',
     about: 'Acerca de',
     search: 'Buscar',
   },
   RU: {
-    searchPlaceholder: 'Введите страну',
+    home: 'Введите страну',
     about: 'О нас',
     search: 'Поиск',
   },
   FA: {
-    searchPlaceholder: 'نام کشور را وارد کنید',
+    home: 'نام کشور را وارد کنید',
     about: 'درباره ما',
     search: 'جستجو',
   },
