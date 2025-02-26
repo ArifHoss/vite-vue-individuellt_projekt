@@ -1,44 +1,72 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { useAuthStore } from '@/stores/authStore.js'
 import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
 
+const authStore = useAuthStore()
 const router = useRouter()
-const user = ref(null)
 
-// Fetch user info from localStorage
 onMounted(() => {
-  const storedUser = localStorage.getItem('user')
-  if (storedUser) {
-    user.value = JSON.parse(storedUser)
-  } else {
-    router.push('/login') // Redirect to login if no user is logged in
-  }
+  if (!authStore.user) router.push('/login')
 })
-
-// Logout function
-// const logout = () => {
-//   localStorage.removeItem('user') // Remove user data
-//   user.value = null
-//   router.push('/login') // Redirect to login
-// }
 </script>
 
 <template>
-  <div class="profile-container" v-if="user">
-    <h2>User Profile</h2>
-    <p><strong>Email:</strong> {{ user.username }}</p>
-    <!-- <button @click="logout" class="btn btn-danger">Logout</button> -->
-  </div>
+  <div v-if="authStore.user" class="profile-container card shadow">
+    <div class="card-body">
+      <h2 class="card-title mb-4">👤 {{ authStore.user.firstName }} {{ authStore.user.lastName }}</h2>
+      <p class="card-text"><strong>Email:</strong> {{ authStore.user.email }}</p>
+      <p class="card-text"><strong>Phone:</strong> {{ authStore.user.phone }}</p>
 
-  <!-- <div v-else class="profile-container">
-    <h2>Redirecting to login...</h2>
-  </div> -->
+      <div class="mt-4">
+        <h4 class="text-primary">⭐ Favourites</h4>
+        <ul class="list-group list-group-flush">
+          <li v-for="uni in authStore.user.favourites" :key="uni" class="list-group-item">
+            {{ uni }}
+          </li>
+          <li v-if="!authStore.user.favourites.length" class="list-group-item text-muted">No favourites added yet.</li>
+        </ul>
+      </div>
+
+      <div class="mt-4">
+        <h4 class="text-success">🌎 Recently Searched Countries</h4>
+        <ul class="list-group list-group-flush">
+          <li v-for="country in authStore.user.searchedList" :key="country" class="list-group-item">
+            {{ country }}
+          </li>
+          <li v-if="!authStore.user.searchedList.length" class="list-group-item text-muted">No recent searches.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 .profile-container {
-  max-width: 400px;
-  margin: 50px auto;
-  text-align: center;
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #ffffff;
+}
+
+.card-title {
+  font-size: 1.8rem;
+  color: #343a40;
+}
+
+.card-text {
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.list-group-item {
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.list-group-item.text-muted {
+  font-style: italic;
 }
 </style>

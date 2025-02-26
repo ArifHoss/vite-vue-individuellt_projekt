@@ -1,28 +1,20 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore.js'
 
+const authStore = useAuthStore()
 const router = useRouter()
-const username = ref('')
+const email = ref('')
 const password = ref('')
 const errorMessage = ref('')
 
-// Hardcoded users for authentication
-const users = [
-  { username: 'arif@gmail.com', password: '1234' },
-  { username: 'johndoe@gmail.com', password: '1234' },
-]
-
-// Handle login
-const login = () => {
-  // Check if the user exists in `users[]`
-  const user = users.find((u) => u.username === username.value && u.password === password.value)
-
-  if (user) {
-    localStorage.setItem('user', JSON.stringify(user)) // Store user session
-    router.push('/') // Redirect to home
+const login = async () => {
+  const success = await authStore.login(email.value, password.value)
+  if (success) {
+    router.push('/')
   } else {
-    errorMessage.value = 'Invalid username or password'
+    errorMessage.value = 'Invalid email or password!'
   }
 }
 </script>
@@ -30,12 +22,12 @@ const login = () => {
 <template>
   <div class="login-container">
     <h2>Login</h2>
-    <input v-model="username" type="text" placeholder="Email" class="form-control" />
+    <input v-model="email" type="email" placeholder="Email" class="form-control" />
     <input v-model="password" type="password" placeholder="Password" class="form-control" />
     <button @click="login" class="btn btn-primary mt-2 form-control">Login</button>
-    <p>Do not have an account?</p>
-    <RouterLink class="bd-dark" to="/create">Create account?</RouterLink>
     <p v-if="errorMessage" class="text-danger mt-2">{{ errorMessage }}</p>
+    <p>Do not have an account?</p>
+    <RouterLink class="btn btn-link" to="/create">Create an account</RouterLink>
   </div>
 </template>
 

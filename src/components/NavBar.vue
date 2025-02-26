@@ -1,30 +1,20 @@
 <script setup>
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSearch } from '@/composables/useSearch.js'
 import DropdownMenu from './DropdownMenu.vue'
 import { translations } from '@/stores/translations.js'
+import { useAuthStore } from '@/stores/authStore.js'
+
+const router = useRouter()
+const authStore = useAuthStore()
 
 const { searchQuery, showSuggestions, filteredCountries, selectSuggestion, performSearch } =
   useSearch()
-const router = useRouter()
+
+// Language management
 const selectedLanguage = ref(localStorage.getItem('selectedLanguage') || 'EN')
-const user = ref(null)
 
-//  Make `user` reactive to `localStorage` changes
-watchEffect(() => {
-  const storedUser = localStorage.getItem('user')
-  user.value = storedUser ? JSON.parse(storedUser) : null
-})
-
-// Logout function to clear user and redirect
-const logout = () => {
-  localStorage.removeItem('user')
-  user.value = null
-  router.push('/login')
-}
-
-//  Change language function
 const changeLanguage = (lang) => {
   selectedLanguage.value = lang
   localStorage.setItem('selectedLanguage', lang)
@@ -32,8 +22,13 @@ const changeLanguage = (lang) => {
 
 const t = computed(() => translations[selectedLanguage.value])
 
-//  Dynamically update dropdown items based on login status
-const userItems = computed(() => (user.value ? ['Profile', 'Logout'] : ['Login']))
+// Dynamic user dropdown items based on login status
+const userItems = computed(() => (authStore.user ? ['Profile', 'Logout'] : ['Login']))
+
+const handleLogout = () => {
+  authStore.logout()
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -117,7 +112,7 @@ const userItems = computed(() => (user.value ? ['Profile', 'Logout'] : ['Login']
           </li>
 
           <!--  Dynamic User Dropdown -->
-          <DropdownMenu title="User" id="userDropdown" :items="userItems" @logout="logout" />
+          <DropdownMenu title="User" id="userDropdown" :items="userItems" @logout="handleLogout" />
         </ul>
       </div>
     </div>
