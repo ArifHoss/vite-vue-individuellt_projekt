@@ -1,8 +1,11 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useAuthStore } from '@/stores/authStore.js'
 
 const route = useRoute()
+const authStore = useAuthStore()
+
 const universities = ref(null)
 const name = ref(decodeURIComponent(route.query.country || ''))
 const loading = ref(false)
@@ -17,13 +20,15 @@ const fetchUniversities = async () => {
     const encodedName = encodeURIComponent(name.value)
     const apiUrl = `http://universities.hipolabs.com/search?country=${encodedName}`
 
-    console.log('Fetching from API:', apiUrl)
-
     const response = await fetch(apiUrl)
 
     if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`)
 
     universities.value = await response.json()
+
+    // Add successful search to user history
+    authStore.addSearchToHistory(name.value)
+    
   } catch (err) {
     console.error('Error fetching universities:', err)
     error.value = true
@@ -41,7 +46,6 @@ watch(
   },
 )
 
-// Fetch universities on first mount if query exists
 onMounted(() => {
   if (name.value) fetchUniversities()
 })

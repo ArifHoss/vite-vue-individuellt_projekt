@@ -14,7 +14,9 @@ onMounted(() => {
 <template>
   <div v-if="authStore.user" class="profile-container card shadow">
     <div class="card-body">
-      <h2 class="card-title mb-4">👤 {{ authStore.user.firstName }} {{ authStore.user.lastName }}</h2>
+      <h2 class="card-title mb-4">
+        👤 {{ authStore.user.firstName }} {{ authStore.user.lastName }}
+      </h2>
       <p class="card-text"><strong>Email:</strong> {{ authStore.user.email }}</p>
       <p class="card-text"><strong>Phone:</strong> {{ authStore.user.phone }}</p>
 
@@ -24,7 +26,9 @@ onMounted(() => {
           <li v-for="uni in authStore.user.favourites" :key="uni" class="list-group-item">
             {{ uni }}
           </li>
-          <li v-if="!authStore.user.favourites.length" class="list-group-item text-muted">No favourites added yet.</li>
+          <li v-if="!authStore.user.favourites.length" class="list-group-item text-muted">
+            No favourites added yet.
+          </li>
         </ul>
       </div>
 
@@ -34,10 +38,13 @@ onMounted(() => {
           <li v-for="country in authStore.user.searchedList" :key="country" class="list-group-item">
             {{ country }}
           </li>
-          <li v-if="!authStore.user.searchedList.length" class="list-group-item text-muted">No recent searches.</li>
+          <li v-if="!authStore.user.searchedList.length" class="list-group-item text-muted">
+            No recent searches.
+          </li>
         </ul>
       </div>
     </div>
+    <p>hello World</p>
   </div>
 </template>
 

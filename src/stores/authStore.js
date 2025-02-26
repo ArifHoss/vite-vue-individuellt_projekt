@@ -30,5 +30,29 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('user')
   }
 
-  return { user, login, logout }
+  const addSearchToHistory = async (country) => {
+    if (!user.value) return
+    if (!user.value.searchedList.includes(country)) {
+      user.value.searchedList.unshift(country)
+      if (user.value.searchedList.length > 10) user.value.searchedList.pop()
+
+      // Persist updated user to JSON server
+      await axios.patch(`http://localhost:3000/users/${user.value.id}`, {
+        searchedList: user.value.searchedList,
+      })
+
+      localStorage.setItem('user', JSON.stringify(user.value))
+    }
+  }
+
+  const clearSearchHistory = async () => {
+    if (!user.value) return
+    user.value.searchedList = []
+    await axios.patch(`http://localhost:3000/users/${user.value.id}`, {
+      searchedList: [],
+    })
+    localStorage.setItem('user', JSON.stringify(user.value))
+  }
+
+  return { user, login, logout, addSearchToHistory, clearSearchHistory }
 })

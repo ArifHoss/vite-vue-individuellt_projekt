@@ -1,17 +1,26 @@
 {
   "users": [
     {
+      "id": "1",
       "username": "arif@gmail.com",
       "email": "arif@gmail.com",
       "password": "1234",
       "firstName": "Arif",
-      "lastName": "Hossain",
+      "lastName": "Khan",
       "profilePicUrl": null,
       "phone": "0712345675",
-      "favourites": ["Harvard University", "Stockholm University"],
-      "searchedList": ["Sweden", "United States", "Germany"]
+      "favourites": [
+        "Harvard University",
+        "Stockholm University"
+      ],
+      "searchedList": [
+        "Sweden",
+        "United States",
+        "Germany"
+      ]
     },
     {
+      "id": "2",
       "username": "johndoe@gmail.com",
       "email": "johndoe@gmail.com",
       "password": "1234",
@@ -19,10 +28,16 @@
       "lastName": "Doe",
       "profilePicUrl": null,
       "phone": "0701112233",
-      "favourites": [],
-      "searchedList": []
+      "favourites": [
+        "Harvard University"
+      ],
+      "searchedList": [
+        "Bahamas",
+        "Sweden"
+      ]
     },
     {
+      "id": "3",
       "username": "emily.smith@gmail.com",
       "email": "emily.smith@gmail.com",
       "password": "pass123",
@@ -30,30 +45,59 @@
       "lastName": "Smith",
       "profilePicUrl": null,
       "phone": "0704445566",
-      "favourites": ["Harvard University", "Stanford University"],
-      "searchedList": ["United States", "Sweden"]
+      "favourites": [
+        "Harvard University"
+      ],
+      "searchedList": []
     },
     {
-      "username": "alice@mail.com",
-      "email": "alice@mail.com",
-      "password": "pass123",
-      "firstName": "Alice",
+      "id": "3",
+      "username": "bob@example.com",
+      "email": "bob@example.com",
+      "password": "1234",
+      "firstName": "Bob",
       "lastName": "Johnson",
       "profilePicUrl": null,
       "phone": "0721234567",
-      "favourites": ["University of Oxford"],
-      "searchedList": ["United Kingdom"]
+      "favourites": [
+        "University of Oxford"
+      ],
+      "searchedList": [
+        "United Kingdom"
+      ]
     },
     {
+      "id": "4",
+      "username": "alice@gmail.com",
+      "email": "alice@gmail.com",
+      "password": "alice123",
+      "firstName": "Alice",
+      "lastName": "Williams",
+      "profilePicUrl": null,
+      "phone": "0739876543",
+      "favourites": [
+        "Stanford University"
+      ],
+      "searchedList": [
+        "United States",
+        "Canada"
+      ]
+    },
+    {
+      "id": "5",
       "username": "bob@example.com",
       "email": "bob@example.com",
-      "password": "test1234",
+      "password": "pass1234",
       "firstName": "Bob",
-      "lastName": "Smith",
+      "lastName": "Brown",
       "profilePicUrl": null,
-      "phone": "0733224455",
-      "favourites": ["Uppsala University", "KTH Royal Institute of Technology"],
-      "searchedList": ["Sweden", "Germany"]
+      "phone": "0705558899",
+      "favourites": [],
+      "searchedList": [
+        "France",
+        "Italy",
+        "Spain"
+      ]
     }
   ]
 }
