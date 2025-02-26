@@ -30,6 +30,16 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.removeItem('user')
   }
 
+  const registerUser = async (newUser) => {
+    try {
+      const response = await axios.post('http://localhost:3000/users', newUser)
+      return response.data
+    } catch (error) {
+      console.error('Error registering user:', error)
+      throw error
+    }
+  }
+
   const addSearchToHistory = async (country) => {
     if (!user.value) return
     if (!user.value.searchedList.includes(country)) {
@@ -54,5 +64,5 @@ export const useAuthStore = defineStore('auth', () => {
     localStorage.setItem('user', JSON.stringify(user.value))
   }
 
-  return { user, login, logout, addSearchToHistory, clearSearchHistory }
+  return { user, login, logout, registerUser, addSearchToHistory, clearSearchHistory }
 })

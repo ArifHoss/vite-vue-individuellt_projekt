@@ -14,6 +14,8 @@
         "Stockholm University"
       ],
       "searchedList": [
+        "Bangladesh",
+        "Senegal",
         "Sweden",
         "United States",
         "Germany"
@@ -97,6 +99,21 @@
         "France",
         "Italy",
         "Spain"
+      ]
+    },
+    {
+      "id": "64b2",
+      "firstName": "arif",
+      "lastName": "hossain",
+      "username": "hossain@gmail.com",
+      "email": "hossain@gmail.com",
+      "password": "1234",
+      "phone": "12345678",
+      "profilePicUrl": null,
+      "favourites": [],
+      "searchedList": [
+        "Bangladesh",
+        "Sweden"
       ]
     }
   ]

@@ -44,7 +44,6 @@ onMounted(() => {
         </ul>
       </div>
     </div>
-    <p>hello World</p>
   </div>
 </template>
 
